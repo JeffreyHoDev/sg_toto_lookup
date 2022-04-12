@@ -5,7 +5,12 @@
   height: 100%;
 }
 
+a {
+  color: white;
+}
+
+
 
 .body-section {
-  margin-top: 140px;
+  margin-top: 210px;
 }

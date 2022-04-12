@@ -1,11 +1,19 @@
 import './list.css'
 import {useState, useEffect} from 'react'
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+
+import BarChart from '../chart/BarChart';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import Button from '@mui/material/Button';
+import TableChartIcon from '@mui/icons-material/TableChart';
 
 
 const List = () => {
     let [fetchedData, setData] = useState([])
     let [occurenceStat, setOccurence] = useState("default")
     let [numberStat, setNumber] = useState("default")
+    let [dataView, setDataView] = useState("table")
   
     useEffect(() => {
       fetch('http://localhost:9999/data')
@@ -72,28 +80,45 @@ const List = () => {
 
 
     return (
-        <div className="List-div">
-            <table >
-                <thead>
-                    <tr>
-                        <th onClick={(e) => sortNumber(fetchedData,numberStat)}>Number</th>
-                        <th onClick={(e) => sortOccurence(fetchedData,occurenceStat)}>Occurence (Count)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {
-                    fetchedData.length > 0 ? 
-                    fetchedData.map((item,index) => {
-                        return <tr key={`item_${index}`}>
-                            <td>{item.number}</td>
-                            <td>{item.occurence}</td>
+        <>
+        {
+            dataView === "table" ? (   
+                <div className="List-div">
+                <Button variant="outlined" className="view-button" onClick={() => setDataView("barchart")}>Chart View <BarChartIcon/></Button>
+                <h3>Number-Occurence Table (Data started from 1st Jan 2021)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th onClick={(e) => sortNumber(fetchedData,numberStat)}>Number {numberStat === "ascending" ? <ArrowDownwardIcon/>: <ArrowUpwardIcon/>}</th>
+                            <th onClick={(e) => sortOccurence(fetchedData,occurenceStat)}>Occurence (Count) {occurenceStat === "ascending" ? <ArrowDownwardIcon/>: <ArrowUpwardIcon/>}</th>
                         </tr>
-                    })
-                    : <tr><td>Loading</td></tr>
-                }
-                </tbody>
-            </table>
-        </div>
+                    </thead>
+                    <tbody>
+                    {
+                        fetchedData.length > 0 ? 
+                        fetchedData.map((item,index) => {
+                            return <tr key={`item_${index}`}>
+                                <td>{item.number}</td>
+                                <td>{item.occurence}</td>
+                            </tr>
+                        })
+                        : <tr><td>Loading</td></tr>
+                    }
+                    </tbody>
+                </table>
+                
+            </div>
+            ):
+            <div className='barchart-section'>
+                <Button  variant="outlined" className="view-button" onClick={() => setDataView("table")}>Table View <TableChartIcon/></Button>
+                <div className='barchart'>
+                    <BarChart data={fetchedData}/>
+                </div>
+            </div>
+        }
+
+
+        </>
     )
 }
 
