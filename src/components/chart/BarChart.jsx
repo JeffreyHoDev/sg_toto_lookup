@@ -23,7 +23,7 @@ ChartJS.register(
 
 
 const BarChart = (props) => {
-  console.log(props)
+  
   const options = {
     responsive: true,
     plugins: {
@@ -44,10 +44,6 @@ const BarChart = (props) => {
   const sortedData = props.data.sort((a,b) => {
     return a.number - b.number
   })
-
-  console.log(sortedData)
-  
-  
 
   const data = {
     labels,

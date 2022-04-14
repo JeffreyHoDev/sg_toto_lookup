@@ -1,19 +1,39 @@
 const express = require('express')
 const cors = require('cors')
+const dotenv = require('dotenv');
+const fs = require('fs');
+dotenv.config();
+
+
 const app = express()
-const port = 9999
+const port = process.env.DB_PORT
+
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded())
 
+// const knex = require('knex')({
+//     client: 'pg',
+//     connection: {
+//       host : '127.0.0.1',
+//       port : 5432,
+//       user : 'postgres',
+//       password : 'Reunion94!',
+//       database : 'sg_toto'
+//     }
+// });
+
 const knex = require('knex')({
     client: 'pg',
     connection: {
-      host : '127.0.0.1',
-      port : 5432,
-      user : 'postgres',
-      password : 'Reunion94!',
-      database : 'sg_toto'
+      host : process.env.DB_HOST,
+      port : process.env.DB_DO_PORT,
+      user : process.env.DB_USERNAME,
+      password : process.env.DB_PASSWORD,
+      database : process.env.DB_DO,
+      ssl: {
+        ca: fs.readFileSync('./ca-certificate.crt').toString()
+      }
     }
 });
 
