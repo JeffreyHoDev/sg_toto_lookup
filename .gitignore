@@ -20,6 +20,9 @@
 .env
 
 *.crt
+*.txt
+.*
+firebase.json
 
 npm-debug.log*
 yarn-debug.log*

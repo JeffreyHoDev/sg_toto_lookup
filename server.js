@@ -12,17 +12,6 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded())
 
-// const knex = require('knex')({
-//     client: 'pg',
-//     connection: {
-//       host : '127.0.0.1',
-//       port : 5432,
-//       user : 'postgres',
-//       password : 'Reunion94!',
-//       database : 'sg_toto'
-//     }
-// });
-
 const knex = require('knex')({
     client: 'pg',
     connection: {
@@ -61,3 +50,4 @@ app.post('/update', (req, res) => {
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
+
