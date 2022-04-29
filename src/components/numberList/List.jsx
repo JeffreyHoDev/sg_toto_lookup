@@ -1,5 +1,5 @@
 import './list.css'
-import {useState, useEffect} from 'react'
+import {useState} from 'react'
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 
@@ -10,18 +10,14 @@ import TableChartIcon from '@mui/icons-material/TableChart';
 
 import Spinner from '../spinner/Spinner'
 
-const List = () => {
-    let [fetchedData, setData] = useState([])
+
+
+const List = ({ fetchedData, setData }) => {
+
     let [occurenceStat, setOccurence] = useState("default")
     let [numberStat, setNumber] = useState("default")
     let [dataView, setDataView] = useState("table")
-  
-    useEffect(() => {
-      fetch('http://localhost:9999/data')
-      .then(response => response.json())
-      .then(data => setData([].concat(data)))
-      .catch(console.log)
-    },[]);
+
 
     let sortOccurence = (data, stat) => {
         switch(stat) {

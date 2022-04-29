@@ -22,7 +22,8 @@
 *.crt
 *.txt
 .*
-firebase.json
+
+constant.json
 
 npm-debug.log*
 yarn-debug.log*
